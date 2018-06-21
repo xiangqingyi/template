@@ -1,0 +1,34 @@
+extends ../layout-blank
+
+block content
+    section#login-container
+        .row
+            #login-wrapper.col-md-3
+                .panel.panel-primary
+                    .panel-heading
+                        h3.panel-title
+                            | 注册
+                    .panel-body
+                        p
+                            | 已经是用户? 
+                            a(href='pages-login.html')
+                                strong 登录
+                        form(role='form', action='', method='post')
+                            .form-group
+                                label(for='exampleInputEmail1') 用户名
+                                input#exampleInputEmail1.form-control(type='text', name='username', placeholder='请输入用户名', autofocus)
+                            .form-group
+                                label(for='exampleInputPassword1') 密碼
+                                input#exampleInputPassword1.form-control(type='password', name='password', placeholder='请输入密码')
+                            .form-group
+                                label(for='exampleInputName1') 姓名
+                                input#exampleInputName1.form-control(type='text', name='name', placeholder='请输入姓名')
+                            .form-group
+                                label(for='exampleInputEmail1') Email
+                                input#exampleInputEmail1.form-control(type='email', name='email', placeholder='请输入Email')
+                            .form-group
+                                label(for='exampleInputMobile1') 手機號
+                                input#exampleInputMobile1.form-control(type='text', name='mobile', placeholder='请输入手機號')
+                            input(type='hidden', name='_csrf', value='#{token}')
+                            button.btn.btn-primary.btn-block(type='submit') 注册
+

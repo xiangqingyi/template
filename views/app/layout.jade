@@ -1,0 +1,17 @@
+doctype html
+html.no-js
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title #{title}
+        link(rel='stylesheet', href='/#{homepage}/public/assets/app/css/index.css')
+        block head-css
+        block head-js
+        
+        body
+            .wrapper
+                block content
+                    
+       
+        // Load these page level functions
+block foot-js

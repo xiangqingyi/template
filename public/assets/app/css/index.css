@@ -1,0 +1,42 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*初始化*/
+
+body,
+div,
+span,
+ul,
+li,
+p,
+input,
+h1,
+h2,
+h3,
+h4,
+img,
+a,
+title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+html,
+body {
+  width: 100%;
+}
+
+body {
+  max-width: 640px;
+  overflow-y: scroll;
+  font-family: Helvetica, STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Arial;
+  margin: 0 auto;
+  font-size: 1.4rem;
+}
+
+a {
+  color: #0076cc;
+}

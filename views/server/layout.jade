@@ -1,0 +1,151 @@
+doctype html
+html.no-js
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title #{title}
+        meta(name='description', content='')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+        // Favicon
+        link(rel='shortcut icon', href='/#{homepage}/public/assets/server/img/favicon.png', type='image/x-icon')
+        // Bootstrap core CSS
+        link(rel='stylesheet', href='/#{homepage}/public/assets/plugins/bootstrap/3.3.7/css/bootstrap.min.css'+'?t=#{new Date().getTime()}')
+        // Bootstrap dialog
+        link(rel='stylesheet', href='/#{homepage}/public/assets/plugins/bootstrap3-dialog/1.35.4/bootstrap-dialog.min.css'+'?t=#{new Date().getTime()}')
+        
+        link(rel='stylesheet', href='/#{homepage}/public/assets/plugins/messenger/css/messenger.css'+'?t=#{new Date().getTime()}')
+        link(rel='stylesheet', href='/#{homepage}/public/assets/plugins/messenger/css/messenger-theme-flat.css'+'?t=#{new Date().getTime()}')
+        // Fonts from Font Awsome
+        //link(rel='stylesheet', href='//cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css')
+        // Fonts from Font Awsome
+        link(rel='stylesheet', href='/#{homepage}/public/assets/plugins/font-awesome/4.7.0/css/font-awesome.min.css'+'?t=#{new Date().getTime()}')
+        // CSS Animate
+        link(rel='stylesheet', href='/#{homepage}/public/assets/plugins/animatecss/3.5.2/animate.css'+'?t=#{new Date().getTime()}')
+        // Custom styles for this theme
+        link(rel='stylesheet', href='/#{homepage}/public/assets/server/css/main.css'+'?t=#{new Date().getTime()}')
+        link(rel='stylesheet', href='/#{homepage}/public/assets/server/css/style.css'+'?t=#{new Date().getTime()}')
+        block head-css
+        block head-js
+        
+    body
+        section#container
+            header#header
+                // logo start
+                .brand
+                    a.logo(href='#{adminDir}')
+                        | 管理後台
+                        
+                // logo end
+                .toggle-navigation.toggle-left
+                    button#toggle-left.btn.btn-default(type='button', data-toggle='tooltip', data-placement='right', title='切换左栏')
+                        i.fa.fa-bars
+
+                .user-nav
+                    ul
+                        if (User)
+                            li.profile-photo
+                                - var avatar = gravatar.url(User.email, {s: '40',r: 'x',d: 'retro'}, true)
+                                img.img-circle(src='#{avatar}', alt='')
+                            li.dropdown.settings
+                                a.dropdown-toggle(data-toggle='dropdown', href='')
+                                    | #{User.name}
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu
+                                    li
+                                        a(href='#{adminDir}/me')
+                                            i.fa.fa-user
+                                            |  个人资料
+                                    //li
+                                        a(href='index.html#')
+                                            i.fa.fa-envelope
+                                            |  消息 
+                                            span#user-inbox.badge.badge-danager 5
+                                    li
+                                        a(href='#{adminDir}/user/logout')
+                                            i.fa.fa-power-off
+                                            |  登出
+            // sidebar left start
+            aside.sidebar
+                #leftside-navigation.nano
+                    ul.nano-content
+                        li(class=Path === 'index' ? 'active' : '')
+                            a(href='#{adminDir}')
+                                i.fa.fa-dashboard
+                                span 首页
+                        if (User && (Roles.indexOf('admin') > -1 || Actions.indexOf('IPAPK_INDEX') > -1))
+                            li.sub-menu(class=Path === 'ipapk' ? 'active' : '')
+                                a(href='javascript:void(0);')
+                                    i.fa.fa-users
+                                    span APP管理
+                                    i.arrow.fa.fa-angle-right.pull-right
+                                ul
+                                    li(class=Menu === 'list' ? 'active' : '')
+                                        a(href='#{adminDir}/ipapk') APP列表
+                                    li(class=Menu === 'add' ? 'active' : '')
+                                        a(href='#{adminDir}/ipapk/add') 添加APP
+                        if (User && (Roles.indexOf('admin') > -1 || Actions.indexOf('USER_INDEX') > -1))
+                            li.sub-menu(class=Path === 'user' ? 'active' : '')
+                                a(href='javascript:void(0);')
+                                    i.fa.fa-users
+                                    span 用户
+                                    i.arrow.fa.fa-angle-right.pull-right
+                                ul
+                                    li(class=Menu === 'list' ? 'active' : '')
+                                        a(href='#{adminDir}/user') 用户列表
+                                    li(class=Menu === 'add' ? 'active' : '')
+                                        a(href='#{adminDir}/user/add') 添加用户
+                        if (User && (Roles.indexOf('admin') > -1 || Actions.indexOf('ROLE_INDEX') > -1))
+                            li.sub-menu(class=Path === 'role' ? 'active' : '')
+                                a(href='javascript:void(0);')
+                                    i.fa.fa-unlock-alt
+                                    span 角色
+                                    i.arrow.fa.fa-angle-right.pull-right
+                                ul
+                                    li(class=Menu === 'list' ? 'active' : '')
+                                        a(href='#{adminDir}/role') 角色列表
+                                    li(class=Menu === 'add' ? 'active' : '')
+                                        a(href='#{adminDir}/role/add') 添加角色
+                         
+                        //- if (User && Roles.indexOf('admin') > -1 || Actions.indexOf('NOTIFICATION_INDEX') > -1)
+                        //-     li.sub-menu(class=Path === 'notification' ? 'active' : '')
+                        //-         a(href='javascript:void(0);')
+                        //-             i.fa.fa-envelope
+                        //-             span 站内信
+                        //-             i.arrow.fa.fa-angle-right.pull-right
+                        //-         ul
+                        //-             li(class=Menu === 'list' ? 'active' : '')
+                        //-                 a(href='#{adminDir}/notification') 全部
+                        //-             li(class=Menu === 'received' ? 'active' : '')
+                        //-                 a(href='#{adminDir}/notification/received') 已收到
+                        //-             li(class=Menu === 'sent' ? 'active' : '')
+                        //-                 a(href='#{adminDir}/notification/sent') 已发出
+                       
+                        if (User && Roles.indexOf('admin') > -1 || Actions.indexOf('LOG_INDEX') > -1)
+                            li.sub-menu(class=Path === 'log' ? 'active' : '')
+                                a(href='#{adminDir}/log')
+                                    i.fa.fa-file
+                                    span 日志
+                                
+            // sidebar left end
+            // main content start
+            section.main-content-wrapper
+                section#main-content
+                    block content
+                    
+                    
+            // main content end
+            
+        // Global JS
+        script(src='/#{homepage}/public/assets/plugins/jquery/3.3.1/jquery.min.js'+'?t=#{new Date().getTime()}')
+        //script(src='/#{homepage}/public/assets/plugins/jquery.form/4.2.0/jquery.form.min.js'+'?t=#{new Date().getTime()}')
+        script(src='/#{homepage}/public/assets/plugins/bootstrap/3.3.7/js/bootstrap.min.js'+'?t=#{new Date().getTime()}')
+        script(src='/#{homepage}/public/assets/plugins/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js'+'?t=#{new Date().getTime()}')
+        //script(src='//cdn.jsdelivr.net/sweetalert2/6.4.4/sweetalert2.min.js'+'?t=#{new Date().getTime()}')
+        script(src='/#{homepage}/public/assets/plugins/messenger/js/messenger.min.js'+'?t=#{new Date().getTime()}')
+        script(src='/#{homepage}/public/assets/plugins/messenger/js/messenger-theme-future.js'+'?t=#{new Date().getTime()}')
+        //script(src='//cdn.jsdelivr.net/mustache.js/2.3.0/mustache.min.js'+'?t=#{new Date().getTime()}')
+        script(src='/#{homepage}/public/assets/server/js/application.js'+'?t=#{new Date().getTime()}')
+        script(src='/#{homepage}/public/assets/plugins/bootstrap-suggest/bootstrap-suggest.min.js'+'?t=#{new Date().getTime()}')
+       
+        // Load these page level functions
+        block foot-js
